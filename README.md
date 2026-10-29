@@ -25,6 +25,8 @@ In indoors, we will use:
 - PMS7003 to measure particulates
 - SGP40 to estimate overall TVOC
 - SCD30 to estimate CO2 concentration in homes
+- MQ-5 gas sensor for combustible gas
+- MQ-7 for carbon monoxide
 
 Each of these sensors will be connected to an ESP32, and the ESP32 will send data to an MQTT broker, where we can then subscribe to it and log it into influx db, and then also view the data using Grafana.
 

@@ -11,6 +11,9 @@ The sensors we will use include:
 - Barometer
 - PMS7003 to measure particulates to determine particulates
 
+
 Each of these sensors will be connected to an ESP32, and the ESP32 will send data to an MQTT broker, where we can then subscribe to it and log it into influx db, and then also view the data using Grafana.
 
 We will also include a telegram bot which you can use to query from the database, and notify users on important readings.
+
+For displaying the data, we will use a simple OLED display at the weather station to display the IP address and some information.

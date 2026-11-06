@@ -1,0 +1,86 @@
+# Choosing resistor values 
+
+## Voltage Divider
+
+KVL states:
+
+$$
+V = V_1 + V_2
+$$
+
+We measure $V_2$, and we want to know $V$
+
+$$
+V = \frac{V_2 R_1}{R_2} + V_2
+$$
+
+
+$$
+V = \left(\frac{R_1}{R_2} + 1)V_2
+$$
+
+the idea is that $V_2$ is capped based on the logic level of the MCU's ADC.
+
+
+In our case, we need:
+
+$$
+V_2 \leq 3.3 V
+$$
+
+If we also place the constraint that $V \leq V_{bat}$, then we can solve for the valid range for the ratio $K = \frac{R_1}{R_2}$.
+
+A graphical method to determine this $K$ value can be used using [this Desmos graph](https://www.desmos.com/calculator/sagrdbpkkw).
+
+
+## Voltage Divider for battery readings
+
+So because our battery is directly connected to the ESP32 breakout board, we should only supply a voltage of around 6V and below (one lithium ion cell is good)
+
+Using a 1 to 1 voltage divider should be good (almost the best resolution).
+
+## Voltage dividier for photoresistor
+
+In our case, we want to estimate the resistance of the photoresistor, and then try to categorize the brightness into:
+
+- high brightness (afternoon sunshine)
+- brightness (sunshine)
+- medium brightness (sunset)
+- low brightness (cloudy weather)
+- very low brightness (night)
+
+So let's start with estimating resistance. We start with a lowerbound that says that $R_p \geq R_{min}$
+
+We want to choose $R$, as a value of our voltage divider. We measure $V_o$, and $V$ is going to be the voltage coming out of the MCU.
+
+$$
+V = I R + V_o
+$$
+
+$$
+V_o = I R_p
+$$
+
+$$
+V = \frac{R_p}{R} V_o + V_o
+$$
+
+We want to determine how $R_p$ changes as $V_o$ changes
+
+$$
+R_p = (\frac{V}{V_o} - 1) R
+$$
+
+So it's a weird non-linear relationship. We need to determine $R$ so that we get the desired ranges.
+
+From our measurements:
+
+- very close to the desk lamp: 150 ohms
+- fairly close to the bulb: 1K ohms
+- at the distance from the desk from the bulb: 3k
+- normal room: 150k
+- in shade: 1.5M ohms
+- dark room: 3M ohms
+- complete darkness: 100M ohms
+
+I think selecting a resistor of $67K\Ohm$ should provide decent range.

@@ -32,6 +32,18 @@ If we also place the constraint that $V \leq V_{bat}$, then we can solve for the
 
 A graphical method to determine this $K$ value can be used using [this Desmos graph](https://www.desmos.com/calculator/sagrdbpkkw).
 
+### Determining K experimentally
+
+So want to determine the actual value of $K = \frac{R_1}{R_2}$ but let's say that we can't measure it directly. If we have a trusted multimeter, we can then determine the $K$ value directly.
+
+What we have so far is that we measured that $V_r = 1.837 V$, and we know that $V = 3.32V$, so solving for $K$:
+
+$$
+\frac{V}{V_r} - 1 = K = \frac{3.32}{1.837} - 1 = 0.8073
+$$
+
+> [!NOTE]
+> idk why but it doesn't follow it linearly (it's close, but error starts to grow)
 
 ## Voltage Divider for battery readings
 
@@ -84,6 +96,8 @@ From our measurements:
 - complete darkness: 100M ohms
 
 I think selecting a resistor of $67K\Ohm$ should provide decent range.
+
+
 
 # Concurrency on micropython
 

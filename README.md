@@ -18,4 +18,41 @@ We will also include a telegram bot which you can use to query from the database
 
 For displaying the data, we will use a simple OLED display at the weather station to display the IP address and some information.
 
+# Flashing micropython
 
+We download micropython from [here](https://micropython.org/download/ESP32_GENERIC_C3/). 
+
+In our case, since our ESP32 C3 shows up as `/dev/ttyACM1`
+
+First:
+
+```
+uv tool run esptool erase_flash
+```
+
+Then:
+
+```
+uv tool run esptool write_flash 0 ./ESP32_GENERIC_C3-20260824-v1.29.0.bin
+```
+
+Now:
+
+```
+tio -b 115200 /dev/ttyACM1
+```
+
+should give you a python shell.
+
+
+To list all files:
+
+```
+mpremote connect /dev/ttyACM1 ls
+```
+
+To transfer our code to the esp32, do:
+
+```
+./transfer /dev/ttyACM1
+```

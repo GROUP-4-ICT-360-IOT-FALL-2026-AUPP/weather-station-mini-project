@@ -56,3 +56,9 @@ To transfer our code to the esp32, do:
 ```
 ./transfer /dev/ttyACM1
 ```
+
+To install the libraries to the esp32:
+
+```
+./install /dev/ttyACM1
+```

@@ -152,14 +152,12 @@ Repositories are stored [here](https://github.com/micropython/micropython-lib/tr
 
 ## I2C
 
-So we kinda have no choice but to send addresses to the registers directly, because there aren't really any libraries (plus, i don't think it's too bad)
-
 Our I2C sensors include:
 
-- bmp280 (this is probably fine)
-- oled (this might be tough, so we might need a library)
+- bmp280 
+- oled
 
-We can find this here:
+We can find some libraries this here:
 
 - [oled driver](https://github.com/micropython/micropython-lib/tree/master/micropython/drivers/display/ssd1306)
 
@@ -182,4 +180,22 @@ that's also fine, DHT11 has analog library. This covers:
 - rain sensor
 - hall effect sensor
 
+# PMS7003 protocol
+
+So let's start by connecting it to a usb to ttl converter.
+
+Doing:
+
+```
+tio -b 9600 /dev/ttyUSB0
+```
+
+gives, gibberish.
+
+Well, the protocol can be found [here](https://download.kamami.pl/p564008-PMS7003%20series%20data%20manua_English_V2.5.pdf)
+
+So essentially, we do a read 32 bytes, however, we read sequentially (not read n bytes, just in case of alignment)
+- we read first 2 bytes and check that it's `0x42` and `0x4d`
+- if yes, then we just read everything else
+- now once we get to the checksum, if the checksum fails, return a None
 

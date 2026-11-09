@@ -1,3 +1,0 @@
-
-I2C_SDA_PIN = 8
-I2C_SCL_PIN = 9

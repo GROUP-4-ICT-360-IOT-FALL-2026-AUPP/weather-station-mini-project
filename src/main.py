@@ -8,6 +8,7 @@ import bmp280_poller
 import rain_sensor
 import oled
 import pms7003
+import mqtt
 
 SDA_PIN = 8
 SCL_PIN = 9
@@ -43,7 +44,8 @@ async def main():
         voltage.main(states),
         dht11.main(states),
         bmp280_poller.main(states, i2c),
-        pms7003.main(states, uart1)
+        pms7003.main(states, uart1),
+        mqtt.main(states)
     )
     #await oled.main(states, i2c)
 

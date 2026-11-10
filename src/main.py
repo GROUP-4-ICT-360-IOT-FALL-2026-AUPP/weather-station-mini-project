@@ -45,7 +45,8 @@ async def main():
         dht11.main(states),
         bmp280_poller.main(states, i2c),
         pms7003.main(states, uart1),
-        mqtt.main(states)
+        mqtt.main(states),
+        oled.main(states, i2c)
     )
     #await oled.main(states, i2c)
 

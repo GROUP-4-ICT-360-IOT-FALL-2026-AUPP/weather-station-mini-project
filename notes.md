@@ -97,8 +97,6 @@ From our measurements:
 
 I think selecting a resistor of $67K\Ohm$ should provide decent range.
 
-
-
 # Concurrency on micropython
 
 So we'll use micropython's builtin asyncio implementation, which uses a coorperative scheduler (so we'll need to be extremely disciplined to make sure that the coroutine must yield, and also must be as non-blocking as possible).

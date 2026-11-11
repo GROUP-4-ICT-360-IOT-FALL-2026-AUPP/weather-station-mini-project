@@ -73,6 +73,13 @@ After which, we can enable the `influxdb` service as such:
 sudo systemctl enable --now influxdb
 ```
 
+Set it up, create an API token and then store it in `env.py`. `env.py` should look something like:
+
+```
+INFLUXDB_TOKEN = "..."
+TELEGRAM_BOT_TOKEN = "..."
+```
+
 Make sure you have access to your github repository (adding a deploy key would be recommended)
 
 Clone the repository and then go to the `base_station` directory, create a virtual environment and then run:
@@ -80,3 +87,24 @@ Clone the repository and then go to the `base_station` directory, create a virtu
 ```
 pip install -r requirements.txt
 ```
+
+We can then run the middle man:
+
+```
+python ./main.py
+```
+
+> [!NOTE]
+> you can make a service, or add it to your crontab to start it automatically on reboot
+
+# Setting up grafana
+
+We will follow the steps [here](https://grafana.com/tutorials/install-grafana-on-raspberry-pi/)
+
+Afterwards, we start it:
+
+```
+sudo systemctl start --now grafana-server
+```
+
+Now go to `http://<raspberry-pi-ip>:3000`, and connect an `influxdb` datasource.

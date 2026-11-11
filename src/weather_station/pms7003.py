@@ -43,7 +43,7 @@ async def main(states, uart):
         pointer += 2
         # now we start parsing the data
         data = dict()
-        data["raw_data"] = raw_data
+        #data["raw_data"] = raw_data
 
         data["frame_length"] = raw_data[pointer] << 8 | raw_data[pointer + 1]
         pointer += 2

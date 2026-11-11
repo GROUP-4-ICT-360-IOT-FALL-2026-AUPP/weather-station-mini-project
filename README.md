@@ -72,3 +72,11 @@ After which, we can enable the `influxdb` service as such:
 ```
 sudo systemctl enable --now influxdb
 ```
+
+Make sure you have access to your github repository (adding a deploy key would be recommended)
+
+Clone the repository and then go to the `base_station` directory, create a virtual environment and then run:
+
+```
+pip install -r requirements.txt
+```

@@ -1,3 +1,4 @@
+import network
 import asyncio
 import photoresistor
 import voltage
@@ -8,6 +9,7 @@ import bmp280_poller
 import rain_sensor
 import oled
 import pms7003
+import wifi
 import mqtt
 
 SDA_PIN = 8
@@ -28,6 +30,7 @@ UART_TIMEOUT_MS = 5
 uart1 = UART(1, baudrate=9600, rx=6, tx=7, timeout=UART_TIMEOUT_MS)
 
 states = {
+    "private_ip": None,
     "voltage": None,
     "photoresistor": None,
     "dht11": None,
@@ -37,7 +40,9 @@ states = {
 }
 
 async def main():
+    wlan = network.WLAN(network.STA_IF)
     await asyncio.gather(
+        wifi.main(states, wlan),
         serial_logger.main(states, i2c),
         photoresistor.main(states),
         rain_sensor.main(states),
@@ -45,7 +50,7 @@ async def main():
         dht11.main(states),
         bmp280_poller.main(states, i2c),
         pms7003.main(states, uart1),
-        mqtt.main(states),
+        mqtt.main(states, wlan),
         oled.main(states, i2c)
     )
     #await oled.main(states, i2c)

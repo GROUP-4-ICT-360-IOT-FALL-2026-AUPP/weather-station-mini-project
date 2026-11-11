@@ -43,7 +43,7 @@ async def main():
     wlan = network.WLAN(network.STA_IF)
     await asyncio.gather(
         wifi.main(states, wlan),
-        serial_logger.main(states, i2c),
+        #serial_logger.main(states, i2c),
         photoresistor.main(states),
         rain_sensor.main(states),
         voltage.main(states),

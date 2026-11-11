@@ -1,6 +1,4 @@
 import asyncio
-import network
-import env
 from umqtt.simple import MQTTClient
 import json
 

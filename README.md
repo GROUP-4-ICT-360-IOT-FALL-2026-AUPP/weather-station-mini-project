@@ -51,14 +51,24 @@ To list all files:
 mpremote connect /dev/ttyACM1 ls
 ```
 
+To install the libraries to the esp32:
+
+```
+./install /dev/ttyACM1
+```
+
 To transfer our code to the esp32, do:
 
 ```
 ./transfer /dev/ttyACM1
 ```
 
-To install the libraries to the esp32:
+# Setting up influxdb on a Linux server
+
+We will follow the [official guide](https://docs.influxdata.com/influxdb/v2/install/#install-linux).
+
+After which, we can enable the `influxdb` service as such:
 
 ```
-./install /dev/ttyACM1
+sudo systemctl enable --now influxdb
 ```

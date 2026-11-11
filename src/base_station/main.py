@@ -31,8 +31,8 @@ def main():
                                 k:v
                         }
                         data_point = {
-                            "tags": {
                             "measurement": k,
+                            "tags": {
                                 "server": "raspberry pi base station"
                             },
                             "fields": field,
@@ -42,7 +42,7 @@ def main():
                             bucket=BUCKET,
                             record=data_point
                         )
-                        print("sent data point: ")
+                        print(f"measurement: {k}")
                         pprint.pprint(field)
 
 if __name__ == "__main__":

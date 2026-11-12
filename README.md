@@ -78,6 +78,9 @@ Set it up, create an API token and then store it in `env.py`. `env.py` should lo
 ```
 INFLUXDB_TOKEN = "..."
 TELEGRAM_BOT_TOKEN = "..."
+TELEGRAM_CHAT_ID = [
+  "..."
+]
 ```
 
 Make sure you have access to your github repository (adding a deploy key would be recommended)
@@ -138,3 +141,9 @@ The telegram bot should do 3 things:
 - Handle user commands (simple queries)
   - for now, just have a `/status` that just gives the current state of the weather
 - Give notification of notable events (rain detected, bad air quality) but only doing it once every day or so such that it doesn't flood the notification
+
+## Usage
+
+To run the telegram bot, simply run `telegram_bot.py`
+
+

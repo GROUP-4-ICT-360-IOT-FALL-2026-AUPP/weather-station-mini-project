@@ -6,7 +6,6 @@ import pprint
 from influxdb_client.client.write_api import SYNCHRONOUS
 import paho.mqtt.subscribe as subscribe
 from influxdb_client import InfluxDBClient
-import telegram_bot_thread
 
 MQTT_BROKER = "public-mqtt-broker.bevywise.com"
 MQTT_PORT = 1883

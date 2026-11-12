@@ -108,3 +108,33 @@ sudo systemctl start --now grafana-server
 ```
 
 Now go to `http://<raspberry-pi-ip>:3000`, and connect an `influxdb` datasource.
+
+Now write flux queries of this form to visualize the data:
+
+```
+from(bucket: "local-weather-station-v1")
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) =>
+        r._measurement == "pms7003" and
+        r._field == "PM2.5(CF=ATM)"
+    )
+    |> map(fn: (r) => ({
+        r with
+        category: if r._value <= 5 then "Excellent (WHO's recommended)"
+                  else if r._value <= 15 then "Good"
+                  else if r._value <= 25 then "Moderate"
+                  else if r._value <= 37.5 then "Poor"
+                  else if r._value <= 50 then "Very poor"
+                  else if r._value <= 75 then "Severe"
+                  else "Extremely severe"
+    }))
+```
+
+# Telegram Bot
+
+The telegram bot should do 3 things:
+
+- Give a daily reading of yesterday's weather (average temperature, rain period, highest temperature)
+- Handle user commands (simple queries)
+  - for now, just have a `/status` that just gives the current state of the weather
+- Give notification of notable events (rain detected, bad air quality) but only doing it once every day or so such that it doesn't flood the notification

@@ -12,7 +12,7 @@ RAIN_NOTIFICATION_INTERVAL = 60*60*4
 RAIN_NOTIFICATION_LAST_SENT = 0
 
 AIR_QUALITY_CHECKER_INTERVAL = 360
-AIR_QUALITY_NOTIFICATION_INTERVAL = 60*60*1
+AIR_QUALITY_NOTIFICATION_INTERVAL = 60*60*4
 AIR_QUALITY_NOTIFICATION_LAST_SENT = 0
 BAD_AIR_QUALITY_THRESHOLD = 12
 
@@ -58,8 +58,11 @@ def query_all_measurements():
     return reply_text
 
 async def status(update: Update, context):
+    measurements = query_all_measurements()
+    if measurements == "":
+        return
     await update.message.reply_text(
-        query_all_measurements()
+        measurements
     )
 
 async def help_command(update: Update, context):
@@ -84,6 +87,7 @@ async def periodic_report(context):
         )
 
 async def air_quality_checker(context):
+    global AIR_QUALITY_NOTIFICATION_LAST_SENT
     reading = query_measurement_and_field("pms7003", "PM2.5(CF=ATM)")
     if reading is None or reading <= BAD_AIR_QUALITY_THRESHOLD:
         return
@@ -93,7 +97,7 @@ async def air_quality_checker(context):
         print(f"Sending bad air quality notification to {chat_id}")
         await context.bot.send_message(
             chat_id=chat_id,
-            text=f"Bad air quality detected! PM2.5 is {reading} ug/m3"
+            text=f"Bad air quality detected! PM2.5 is {reading} um/m3"
         )
     AIR_QUALITY_NOTIFICATION_LAST_SENT = time.time()
 

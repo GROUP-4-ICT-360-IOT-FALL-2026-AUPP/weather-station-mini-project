@@ -22,6 +22,8 @@ def main():
             with client.write_api(write_options=SYNCHRONOUS) as write_api:
                 while True:
                     msg = subscribe.simple(MQTT_TOPIC_SUB, hostname=MQTT_BROKER, port=MQTT_PORT)
+                    if msg.payload == None:
+                        continue
                     payload = json.loads(msg.payload)
                     for k, v in payload.items():
                         field = v
@@ -45,4 +47,8 @@ def main():
                         pprint.pprint(field)
 
 if __name__ == "__main__":
-    main()
+    while True:
+        try:
+            main()
+        except:
+            pass

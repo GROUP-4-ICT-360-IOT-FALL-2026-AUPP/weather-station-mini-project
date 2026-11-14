@@ -97,7 +97,7 @@ async def air_quality_checker(context):
         print(f"Sending bad air quality notification to {chat_id}")
         await context.bot.send_message(
             chat_id=chat_id,
-            text=f"Bad air quality detected! PM2.5 is {reading} um/m3"
+            text=f"Bad air quality detected! PM2.5 is {reading} ug/m3"
         )
     AIR_QUALITY_NOTIFICATION_LAST_SENT = time.time()
 
